@@ -1,20 +1,13 @@
 import UIKit
 
-struct ProgrammaticTweet {
-	var text: String
-	var image: UIImage?
-	var isTextHidden: Bool = false
-	var isTweetHorizontal: Bool = false
-}
 struct Restaurant{
     var imageName: String?
     var name: String
 }
 
-class ProgrammaticTwitterViewController: UITableViewController {
+class RestaurantTableViewController: UITableViewController {
 
-	/// This string is not defined in any storyboard/xib. You can change this string to virtually anything and still have a functioning program.
-	private static let programmaticTwitterCellReuseIdentifier = "thisCanBeAnythingReally"
+	private static let restaurantTableReuseIdentifier = "Andok's Chicken"
 
     var restaurants = [
         Restaurant(imageName: "jollibeeImage", name: "Jolibee"),
@@ -22,21 +15,16 @@ class ProgrammaticTwitterViewController: UITableViewController {
         Restaurant(imageName: "Wendys", name: "Wendy's"),
         Restaurant(imageName: "tacoBelll", name: "Taco Bell"),
         Restaurant(imageName: "kFc", name: "KFC"),
-        Restaurant(imageName: "burgerKing", name: "Burger King"),S
+        Restaurant(imageName: "burgerKing", name: "Burger King"),
     ]
 
-	var tweets = [
-		ProgrammaticTweet(text: "This shows a pencil!", image: UIImage(systemName: "pencil")),
-		ProgrammaticTweet(text: "This shows trash!", image: UIImage(systemName: "trash.circle")),
-		ProgrammaticTweet(text: "This shows folder!", image: UIImage(systemName: "folder"))
-	]
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		tableView.register(
 			RestaurantTableViewCell.self,
-			forCellReuseIdentifier: RestaurantViewController.restaurantCellReuseIdentifier
+			forCellReuseIdentifier: RestaurantTableViewController.restaurantTableCellReuseIdentifier
 		)
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -44,14 +32,12 @@ class ProgrammaticTwitterViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(
-			withIdentifier: restaurantViewController.restaurantCellReuseIdentifier,
+			withIdentifier: RestaurantTableViewController.restaurantTableCellReuseIdentifier,
 			for: indexPath
 		) as? RestaurantTableViewCell 
 		else { return UITableViewCell() }
 
 		let restaurant = restaurants[indexPath.row]
-		// cell.stackView.axis = tweet.isTweetHorizontal ? .horizontal : .vertical
-		// cell.tweetLabel.isHidden = tweet.isTextHidden
 		cell.restaurantLabel.text = restaurant.text
 		cell.myImageView.imageName = UIImage(systemName: imageName)
 		// cell.myImageView.imageName = restaurant
@@ -66,7 +52,7 @@ class ProgrammaticTwitterViewController: UITableViewController {
 		goToDetailsViewController(restaurant: restaurant)
 	}
 
-	func goToDetailsViewController(restaurant: restuarant) {
+	func goToDetailsViewController(restaurant: Restuarant) {
 		// Despite ProgrammaticTwitterViewController's UI not being defined by a xib,
 		// you can still push or present other view controllers whose UI are defined by storyboards.
 		// "DetailsViewController" is the file name of the storyboard.

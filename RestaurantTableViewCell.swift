@@ -11,7 +11,7 @@ class RestaurantTableViewCell: UITableViewCell {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 100)
-		let widthConstraint = view.widthAnchor.constraint(equalToConstant: 100)
+		let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: 100)
 		heightConstraint.isActive = true
 		widthConstraint.isActive = true
 
@@ -23,6 +23,7 @@ class RestaurantTableViewCell: UITableViewCell {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .horizontal
 		stackView.alignment = .leading
+		stackView.spacing = 10.0
 		return stackView
 	}()
 
@@ -37,30 +38,11 @@ class RestaurantTableViewCell: UITableViewCell {
 	}
 
 	func setupUI() {
-		// Use V1 for a non-flexible layout that does not use a UIStackView
-//		setupUIV1()
+
 		// Use V2 for a flexible layout that uses a UIStackView
 		setupUIV2()
 	}
 
-	func setupUIV1() {
-		restaurantLabel.translatesAutoresizingMaskIntoConstraints = false
-		myImageView.translatesAutoresizingMaskIntoConstraints = false
-
-		contentView.addSubview(restaurantLabel)
-		contentView.addSubview(myImageView)
-
-		let constraints = [
-			restaurantLabel.topAnchor.constraint(equalTo: myImageView.bottomAnchor),
-			restaurantLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			restaurantLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			restaurantLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-			myImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-			myImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-		]
-		NSLayoutConstraint.activate(constraints)
-	}
 
 	func setupUIV2() {
 		contentView.addSubview(stackView)
@@ -76,7 +58,6 @@ class RestaurantTableViewCell: UITableViewCell {
 		NSLayoutConstraint.activate(constraints)
 	}
 
-	// MARK: Exhibiting lazy variables.
 	lazy var string: String = {
 		print("Creating string...")
 		return "Test"
